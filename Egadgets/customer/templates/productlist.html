@@ -1,0 +1,21 @@
+{% extends 'cHome.html' %}
+{% block home %}
+
+<h1 class="text-dark text-center" style="margin-top: 75px;">Products</h1>
+
+<div class="row gx-5 m-3">
+{% for i in products %}
+<div class="col-md-3 col-sm-6">
+<div class="card">
+  <img src="{{i.image.url}}" class="card-img-top" height="250px" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{i.title}}</h5>
+    <p class="card-text">{{i.desc}}</p>
+    <p>&#x20B9;{{i.price}}</p>
+    <a href="{% url 'pdet' i.id %}" class="stretched-link"></a>
+  </div>
+</div>
+</div>
+{% endfor %}
+</div>
+{% endblock home %}

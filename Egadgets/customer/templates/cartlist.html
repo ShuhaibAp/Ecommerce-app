@@ -1,0 +1,48 @@
+{% extends 'cHome.html' %}
+{% block home %}
+        <h1 class="text-center mb-4" style="margin-top: 70px;">You'r Cart</h1>
+        {% if messages %}
+            {% for message in messages %}
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                <div class="alert alert-success alert-dismissible fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    <strong>{{ message }}</strong>
+                </div>
+                {% endif %}
+          {% endfor %}
+        {% endif %}
+        <div class=" m-3">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Image</th>
+                            <th>Unit Price</th>
+                            <th>Quantity</th>
+                            <th>Total Price</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in cart %}
+                        <tr>
+                            <td>{{i.product.title}}</td>
+                            <td><img src="{{i.product.image.url}}" alt="Image of a product" height="250px" width="300px"></td>
+                            <td>{{i.product.price}}</td>
+                            <td>
+                                <a href="{% url 'qdec' i.id %}" class="btn">-</a>
+                                {{i.quantity}}
+                                <a href="{% url 'qinc' i.id %}" class="btn">+</a>
+                            </td>
+                            <td>{{i.total_amount}}</td>
+                            <td>
+                                <a href="{% url 'crem' i.id %}" class="btn btn-outline-danger"><i class="fa-solid fa-trash" style="color: #000000;"></i></a>
+                                <a href="{% url 'check' i.id %}" class="btn btn-outline-success mx-2"><i class="fa-regular fa-credit-card" style="color: #000000;margin-right: 5px;"></i>Check Out</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+{% endblock home %}    
