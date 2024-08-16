@@ -12,4 +12,6 @@ urlpatterns=[
     path('qinc/<int:id>',IncQuantity,name='qinc'),
     path('qdec/<int:id>',DecQuantity,name='qdec'),
     path('check/<int:id>',Checkout.as_view(),name='check'),
+    path('order',OrderList.as_view(),name='order'),
+    path('orderdel/<int:id>',DeleteOrder.as_view(),name='orderdel'),
 ]

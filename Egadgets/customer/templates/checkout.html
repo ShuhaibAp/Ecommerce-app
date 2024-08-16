@@ -40,45 +40,46 @@
     <div class="modal-info">
       <div class="info">
         <h2 class="form-head">Payment Information</h2>
-        <form action="#">
+        <form action="" method="post">
+          {% csrf_token %}
           <ul class="form-list">
             <li class="form-list-row">
               <div class="user">
-                <label for="#">Name</label><br>
+                <label for="name">Name</label><br>
                 <i class="fas fa-user"></i></i><input type="text" required>
               </div>
             </li>
             <li class="form-list-row">
               <div class="number">
-                <label for="#">Card Number</label><br>
+                <label for="card-number">Card Number</label><br>
                 <i class="far fa-credit-card"></i><input type="text" required>
               </div>
             </li>
             <li class="form-list-row clearfix">
               <div class="date">
-                <label for="#">Expiration Date</label><br>
+                <label for="exp-date">Expiration Date</label><br>
                 <input class="month" type="text" required placeholder="MM">
                 <input class="year" type="text" required placeholder="YY">
               </div>
               <div class="cvc">
-                <label for="#">CVC</label><i class="fas fa-question-circle"></i><br>
+                <label for="cvc">CVC</label><i class="fas fa-question-circle"></i><br>
                 <input type="text" required placeholder="123">
               </div>
             </li>
             <li class="form-list-row">
               <div class="number">
-                <label for="#">Address</label><br>
-                <i class="fas fa-regular fa-address-card" style="color: #999"></i><input type="text" required>
+                <label for="address">Address</label><br>
+                <i class="fas fa-regular fa-address-card" style="color: #999"></i><input type="text" name="address" required>
               </div>
             </li>
             <li class="form-list-row">
               <div class="number">
-                <label for="#">Phone</label><br>
-                <i class="fa-solid fa-phone" style="color: #999"></i><input type="text" required>
+                <label for="phone">Phone</label><br>
+                <i class="fa-solid fa-phone" style="color: #999"></i><input type="text" name="phone" required>
               </div>
             </li>
           </ul>
-          <button>Pay Now</button>
+          <button>Place Order</button>
         </form>
       </div>
     </div>

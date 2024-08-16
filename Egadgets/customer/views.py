@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from django.views.generic import CreateView,TemplateView,ListView,DetailView
+from django.views.generic import View,CreateView,TemplateView,ListView,DetailView,DeleteView
 from accounts.models import *
 from django.contrib import messages
 # Create your views here.
@@ -72,3 +72,29 @@ class Checkout(DetailView):
     queryset=Cart.objects.all()
     pk_url_kwarg='id'
     context_object_name="item"
+
+    def post(self,request,*args,**kwargs):
+        address=request.POST.get('address')
+        phone=request.POST.get('phone')
+        pid=kwargs.get('id')
+        cart=Cart.objects.get(id=pid)
+        product=cart.product
+        quantity=cart.quantity
+        user=request.user
+        Orders.objects.create(product=product,user=user,quantity=quantity,address=address,phone=phone)
+        cart.delete()
+        messages.success(request,"Order placed!")
+        return redirect('clist')
+
+class OrderList(ListView):
+    template_name='orderList.html'
+    queryset=Orders.objects.all()
+    context_object_name='order'
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
+
+class DeleteOrder(View):
+    def get(self,request,**kwargs):
+        pid=kwargs.get('id')
+        product=Orders.objects.get(id=pid).delete()
+        return redirect('order')

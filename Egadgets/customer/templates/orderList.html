@@ -1,0 +1,26 @@
+{% extends 'cHome.html' %}
+{% block home %}
+
+<h1 class="text-center mb-4" style="margin-top: 70px;">You'r Orders</h1>
+{% for i in order %}
+<div class="row mx-5 mb-3 p-3 border border-2 border-dark shadow ">
+    <div class="col">
+        <img src="{{i.product.image.url}}" alt="Product-image" width="40%">
+    </div>
+    <div class="col">
+        <h1>{{i.product.title}}</h1>
+        <p><b>Price :</b>{{i.product.price}}</p>
+        <p><b>Quantity :</b>{{i.quantity}}</p>
+        <p><b>Total amount :</b>{{i.total_amount}}</p>
+        <p><b>Date Orderes :</b>{{i.date}}</p>
+        <div class="mt-4">
+            <p class="text-success"><b>{{i.status}}</b></p>
+            {% if i.status == 'Order Placed' or i.status == 'Order Shipped' %}
+            <a href="{% url 'orderdel' i.id %}" class="btn btn-outline-danger py-2 px-3">Cancel Order</a>
+            <a href="" class="btn btn-outline-warning py-2 px-3">Change address</a>
+            {% endif  %}
+    </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock home %}

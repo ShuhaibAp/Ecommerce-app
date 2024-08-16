@@ -38,4 +38,13 @@ class Orders(models.Model):
     quantity=models.IntegerField()
     address=models.CharField(max_length=100)
     phone=models.IntegerField()
-    status=models.CharField(max_length=50,default="Order Placed")
+    options=(
+        ("Order Placed","Order Placed"),
+        ("Order Shipped","Order Shipped"),
+        ("Out for delivery","Out for delivery"),
+        ("Order Delivered","Order Delivered"),
+    )
+    status=models.CharField(max_length=50,default="Order Placed",choices=options)
+    @property
+    def total_amount(self):
+        return self.product.price * self.quantity
