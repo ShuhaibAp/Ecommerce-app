@@ -14,4 +14,5 @@ urlpatterns=[
     path('check/<int:id>',Checkout.as_view(),name='check'),
     path('order',OrderList.as_view(),name='order'),
     path('orderdel/<int:id>',DeleteOrder.as_view(),name='orderdel'),
+    path('addrev/<int:id>/',AddReview,name='addrev'),
 ]

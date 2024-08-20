@@ -2,21 +2,47 @@
 {% block home %}
 
 <div class="row p-5 mt-4">
-<div class="col">
-    <img src="{{product.image.url}}" class="img-fluid w-75" alt="">
+    <div class="col">
+        <img src="{{ product.image.url }}" class="img-fluid w-75" alt="">
+    </div>
+    <div class="col">
+        <h3 class="text-warning mb-4" style="margin-top: 75px;">{{ product.title }}</h3>
+        <h4>Category: {{ product.category }}</h4>
+        <h4>&#x20B9; {{ product.price }}</h4>
+        <p>{{ product.desc }}</p>
+        <div class="mt-3">
+            <form action="{% url 'addc' product.id %}" method="post">
+                {% csrf_token %}
+                <input type="number" class="form-control w-25 mb-2" min="1" max="10" value="1" placeholder="Quantity" name="qty">
+                <button type="submit" class="btn btn-outline-warning">Add to Cart</button>
+            </form>
+        </div>
+    </div>
 </div>
-<div class="col">
-<h3 class="text-warning mb-4" style="margin-top: 75px;">{{product.title}}</h3>
-<h4>Category:{{product.category}}</h4>
-<h4>&#x20B9;{{product.price}}</h4>
-<p>{{product.desc}}</p>
-<div class="mt-3">
-<form action="{% url 'addc' product.id %}" method="post">
-    {% csrf_token %}
-    <input type="number" class="form-control w-25 mb-2" min="1" max="10" value="1" placeholder="Quantity" name="qty">
-    <button type="submit" class="btn btn-outline-warning">Add to Cart</button>
-</form>
+
+<div class="mt-5">
+    <h4 class="text-warning">Customer Reviews</h4>
+    {% for review in review %}
+        <div class="border p-3 mb-3">
+            <h5>{{ review.user.first_name }}</h5>
+            <p>{{ review.review }}</p>
+            <small class="text-muted">{{ review.date }}</small>
+        </div>
+    {% empty %}
+        <p>No reviews yet. Be the first to review this product!</p>
+    {% endfor %}
 </div>
+
+<div class="mt-5">
+    <h4 class="text-warning">Add Your Review</h4>
+    <form action="{% url 'addrev' product.id %}" method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="review" class="form-label">Your Review</label>
+            <textarea class="form-control" name="review" id="review" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-outline-warning">Submit Review</button>
+    </form>
 </div>
 
 {% endblock home %}

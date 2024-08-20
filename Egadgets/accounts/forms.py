@@ -29,3 +29,4 @@ class ERegForm(UserCreationForm):
             strip=False,
             help_text=("Enter the same password as before, for verification."),
         )
+

@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView,FormView,CreateView
 from .forms import *
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 # Create your views here.
 
@@ -27,6 +27,10 @@ class ELogin(FormView):
                 return render(request,"loginNew.html",{'form':form_data})
         return render(request,"loginNew.html",{'form':form_data})
 
+def Elogout(request):
+    logout(request)
+    next_url = request.GET.get('next','/')
+    return redirect(next_url)
 
 class ERegister(CreateView):
     template_name="reg.html"
